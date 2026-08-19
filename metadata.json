@@ -1,0 +1,6 @@
+{
+  "name": "Sign Language Live Translator",
+  "description": "Live camera feed with real-time hand skeleton overlay and translation transcript.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
