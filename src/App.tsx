@@ -18,7 +18,8 @@ export default function App() {
     cameraError,
     currentGesture,
     isCameraActive,
-    startCamera
+    startCamera,
+    toggleCamera
   } = useHandTracker(handleNewTranscript);
 
   const handleClearTranscript = useCallback(() => {
@@ -36,6 +37,7 @@ export default function App() {
         currentGesture={currentGesture}
         isCameraActive={isCameraActive}
         onRetryCamera={startCamera}
+        onToggleCamera={toggleCamera}
       />
 
       {/* 2. Right side: ONLY a dark-themed sidebar showing the live text translation transcript and a clear button */}

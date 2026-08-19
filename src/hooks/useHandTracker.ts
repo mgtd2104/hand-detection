@@ -243,6 +243,33 @@ export function useHandTracker(onNewTranscript: (item: TranscriptItem) => void) 
     };
   }, []);
 
+  const stopCamera = useCallback(() => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+    smoothedHandsRef.current = [];
+    lastDetectedGestureRef.current = null;
+    setCurrentGesture(null);
+    setIsCameraActive(false);
+
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      }
+    }
+  }, []);
+
+  const toggleCamera = useCallback(() => {
+    if (isCameraActive) {
+      stopCamera();
+    } else {
+      startCamera();
+    }
+  }, [isCameraActive, startCamera, stopCamera]);
+
   return {
     videoRef,
     canvasRef,
@@ -250,6 +277,8 @@ export function useHandTracker(onNewTranscript: (item: TranscriptItem) => void) 
     cameraError,
     currentGesture,
     isCameraActive,
-    startCamera
+    startCamera,
+    stopCamera,
+    toggleCamera
   };
 }
